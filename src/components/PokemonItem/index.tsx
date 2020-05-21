@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import './index.css';
 
 import { Pokemon } from '../../reducers/Pokemon/types';
@@ -23,4 +23,4 @@ const PokemonItem: React.FC<Props> = ({ pokemon }) => {
   );
 };
 
-export default PokemonItem;
+export default memo(PokemonItem);

@@ -38,6 +38,7 @@
   font-weight: normal;
   position: relative;
   z-index: 2;
+  line-height: 1.5;
 }
 
 .pokemon-card .card-subtitle {

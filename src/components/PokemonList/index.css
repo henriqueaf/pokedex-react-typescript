@@ -8,3 +8,7 @@
   grid-gap: 20px;
   padding-inline-start: 0;
 }
+
+.pokemon-list-container ul .pokemon-link {
+  text-decoration: none;
+}
