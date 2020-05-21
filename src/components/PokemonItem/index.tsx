@@ -3,22 +3,24 @@ import './index.css';
 
 import { Pokemon } from '../../reducers/Pokemon/types';
 
-type StateProps = Pokemon;
+interface StateProps {
+  pokemon: Pokemon;
+}
 
 export type Props = StateProps;
 
-const PokemonItem: React.FC<Props> = ({ id, name, types }) => (
-  <li className={`card ${types[0]}`}>
-    <img
-      className="card-image"
-      alt={name}
-      src={`https://pokeres.bastionbot.org/images/pokemon/${id}.png`}
-    />
-    <h2 className="card-title">
-      {id}. {name}
-    </h2>
-    <p className="card-subtitle">{types.join(' | ')}</p>
-  </li>
-);
+const PokemonItem: React.FC<Props> = ({ pokemon }) => {
+  const { id, name, types, imgUrl } = pokemon;
+
+  return (
+    <li className={`pokemon-card ${types[0]}`}>
+      <img className="card-image" alt={name} src={imgUrl} />
+      <h2 className="card-title">
+        {id}. {name}
+      </h2>
+      <p className="card-subtitle">{types.join(' | ')}</p>
+    </li>
+  );
+};
 
 export default PokemonItem;

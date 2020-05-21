@@ -12,12 +12,7 @@ const PokemonList: React.FC = () => {
       <ul>
         {!loading &&
           pokemons.map((pokemon) => (
-            <PokemonItem
-              key={pokemon.id}
-              id={pokemon.id}
-              name={pokemon.name}
-              types={pokemon.types}
-            />
+            <PokemonItem key={pokemon.id} pokemon={pokemon} />
           ))}
       </ul>
     </div>

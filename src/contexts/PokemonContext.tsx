@@ -12,7 +12,7 @@ const PokemonContext = createContext<PokemonContextData>(
   {} as PokemonContextData
 );
 
-const PokemonProvider: React.SFC = (props) => {
+const PokemonProvider: React.SFC = ({ children }) => {
   const [state, dispatch] = usePokemonReducer();
   const [loading, setLoading] = useState(true);
   const { pokemons } = state;
@@ -24,6 +24,9 @@ const PokemonProvider: React.SFC = (props) => {
 
   const getPokemonUrl = (id: Number) =>
     `https://pokeapi.co/api/v2/pokemon/${id}`;
+
+  const getPokemonImageUrl = (id: Number) =>
+    `https://pokeres.bastionbot.org/images/pokemon/${id}.png`;
 
   useEffect(() => {
     const pokemonPromises = [];
@@ -43,6 +46,7 @@ const PokemonProvider: React.SFC = (props) => {
             types: pokemonJson.types.map(
               (typeInfo: { type: { name: string } }) => typeInfo.type.name
             ),
+            imgUrl: getPokemonImageUrl(pokemonJson.id),
           })
         )
       );
@@ -53,7 +57,7 @@ const PokemonProvider: React.SFC = (props) => {
 
   return (
     <PokemonContext.Provider value={providerValue}>
-      {props.children}
+      {children}
     </PokemonContext.Provider>
   );
 };
