@@ -30,23 +30,25 @@ const PokemonProvider: React.SFC = (props) => {
 
     for (let i = 1; i <= 150; i++) {
       pokemonPromises.push(
-        fetch(getPokemonUrl(i))
-          .then((response) => response.json())
-          .then((pokemonJson) =>
-            dispatch(
-              addPokemon({
-                id: pokemonJson.id,
-                name: pokemonJson.name,
-                types: pokemonJson.types.map(
-                  (typeInfo: { type: { name: string } }) => typeInfo.type.name
-                ),
-              })
-            )
-          )
+        fetch(getPokemonUrl(i)).then((response) => response.json())
       );
     }
 
-    Promise.all(pokemonPromises).then((_pokemons) => setLoading(false));
+    Promise.all(pokemonPromises).then((pokemons) => {
+      pokemons.forEach((pokemonJson) =>
+        dispatch(
+          addPokemon({
+            id: pokemonJson.id,
+            name: pokemonJson.name,
+            types: pokemonJson.types.map(
+              (typeInfo: { type: { name: string } }) => typeInfo.type.name
+            ),
+          })
+        )
+      );
+
+      setLoading(false);
+    });
   }, [dispatch]);
 
   return (
