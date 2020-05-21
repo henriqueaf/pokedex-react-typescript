@@ -2,6 +2,7 @@ import React from 'react';
 
 import { PokemonProvider } from './contexts/PokemonContext';
 import PokemonList from './components/PokemonList';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 
 const App = () => (
