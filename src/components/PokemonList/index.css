@@ -9,3 +9,7 @@
 .pokemon-list-container ul .pokemon-link {
   text-decoration: none;
 }
+
+.pokemon-filter {
+  padding: 0 20px 20px 20px;
+}

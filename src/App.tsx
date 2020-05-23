@@ -6,12 +6,14 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 
 const App = () => (
-  <PokemonProvider>
+  <>
     <div className="main">
       <div className="header">Pokédex</div>
     </div>
-    <PokemonList />
-  </PokemonProvider>
+    <PokemonProvider>
+      <PokemonList />
+    </PokemonProvider>
+  </>
 );
 
 export default App;
