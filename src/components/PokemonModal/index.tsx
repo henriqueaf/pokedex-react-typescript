@@ -15,7 +15,7 @@ export type Props = StateProps & DispatchProps;
 
 const PokemonModal: React.FC<Props> = ({ show, handleClose, pokemon }) => {
   return (
-    <Modal size="lg" show={show} onHide={handleClose}>
+    <Modal size="lg" show={show} onHide={handleClose} animation={false}>
       <Modal.Header closeButton>
         <Modal.Title>{pokemon?.name}</Modal.Title>
       </Modal.Header>
