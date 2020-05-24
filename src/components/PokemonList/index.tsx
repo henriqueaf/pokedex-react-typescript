@@ -13,6 +13,7 @@ import PokemonItem from '../PokemonItem';
 import { PokemonContext } from '../../contexts/PokemonContext';
 import { Pokemon } from '../../reducers/Pokemon/types';
 import PokemonModal from '../PokemonModal';
+import Pokeball from '../../images/pokeball.png';
 
 const PokemonList: React.FC = () => {
   const { pokemons, loading } = useContext(PokemonContext);
@@ -57,11 +58,11 @@ const PokemonList: React.FC = () => {
         </FormGroup>
       </div>
 
-      <PokemonModal
-        show={Boolean(selectedPokemon)}
-        handleClose={() => setSelectedPokemon(null)}
-        pokemon={selectedPokemon}
-      />
+      {loading && (
+        <div className="loading-container">
+          <img src={Pokeball} alt="Pokeball" className="loading" />
+        </div>
+      )}
 
       <ul>
         {!loading &&
@@ -76,6 +77,12 @@ const PokemonList: React.FC = () => {
             </a>
           ))}
       </ul>
+
+      <PokemonModal
+        show={Boolean(selectedPokemon)}
+        handleClose={() => setSelectedPokemon(null)}
+        pokemon={selectedPokemon}
+      />
     </div>
   );
 };
