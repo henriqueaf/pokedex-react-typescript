@@ -48,6 +48,12 @@ const PokemonList: React.FC = () => {
 
   return (
     <div className="pokemon-list-container">
+      <PokemonModal
+        show={Boolean(selectedPokemon)}
+        handleClose={() => setSelectedPokemon(null)}
+        pokemon={selectedPokemon}
+      />
+
       <div className="pokemon-filter">
         <FormGroup controlId="pokemonFilter">
           <FormControl
@@ -77,12 +83,6 @@ const PokemonList: React.FC = () => {
             </a>
           ))}
       </ul>
-
-      <PokemonModal
-        show={Boolean(selectedPokemon)}
-        handleClose={() => setSelectedPokemon(null)}
-        pokemon={selectedPokemon}
-      />
     </div>
   );
 };
