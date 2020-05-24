@@ -5,7 +5,7 @@ import React, {
   MouseEvent,
   ChangeEvent,
 } from 'react';
-import { Form } from 'react-bootstrap';
+import { FormGroup, FormControl } from 'react-bootstrap';
 import includes from 'lodash/includes';
 import './index.css';
 
@@ -48,15 +48,13 @@ const PokemonList: React.FC = () => {
   return (
     <div className="pokemon-list-container">
       <div className="pokemon-filter">
-        <Form>
-          <Form.Group controlId="pokemonFilter">
-            <Form.Control
-              onChange={handleFilter}
-              type="text"
-              placeholder="Filter Pokemon by name"
-            />
-          </Form.Group>
-        </Form>
+        <FormGroup controlId="pokemonFilter">
+          <FormControl
+            onChange={handleFilter}
+            type="text"
+            placeholder="Filter Pokemon by name"
+          />
+        </FormGroup>
       </div>
 
       <PokemonModal
