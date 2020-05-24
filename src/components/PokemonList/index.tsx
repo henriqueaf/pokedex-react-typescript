@@ -38,9 +38,7 @@ const PokemonList: React.FC = () => {
     const filterText = event.target.value;
 
     if (Boolean(filterText)) {
-      const newArray = filteredPokemons.filter((el) =>
-        includes(el.name, filterText)
-      );
+      const newArray = pokemons.filter((el) => includes(el.name, filterText));
       setFilteredPokemons(newArray);
     } else {
       setFilteredPokemons(pokemons);
