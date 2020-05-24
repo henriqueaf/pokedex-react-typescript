@@ -11,6 +11,8 @@
 }
 
 .pokemon-filter {
+  display: flex;
+  justify-content: center;
   padding: 0 20px 20px 20px;
 }
 

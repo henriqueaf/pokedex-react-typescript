@@ -1,12 +1,8 @@
-import React, {
-  useContext,
-  useEffect,
-  useState,
-  MouseEvent,
-  ChangeEvent,
-} from 'react';
-import { FormGroup, FormControl } from 'react-bootstrap';
+import React, { useContext, useEffect, useState, MouseEvent } from 'react';
+import { FormGroup } from 'react-bootstrap';
+import { Typeahead } from 'react-bootstrap-typeahead';
 import includes from 'lodash/includes';
+import isEmpty from 'lodash/isEmpty';
 import './index.css';
 
 import PokemonItem from '../PokemonItem';
@@ -35,14 +31,20 @@ const PokemonList: React.FC = () => {
     value: string;
   }
 
-  const handleFilter = (event: ChangeEvent<FormControlElement>) => {
-    const filterText = event.target.value;
-
-    if (Boolean(filterText)) {
-      const newArray = pokemons.filter((el) => includes(el.name, filterText));
+  const handleFilterTextChange = (input: string, event: Event) => {
+    if (Boolean(input)) {
+      const newArray = pokemons.filter((el) => includes(el.name, input));
       setFilteredPokemons(newArray);
     } else {
       setFilteredPokemons(pokemons);
+    }
+  };
+
+  const handleFilterOptionSelected = (selected: Pokemon[]) => {
+    if (isEmpty(selected)) {
+      setFilteredPokemons(pokemons);
+    } else {
+      setFilteredPokemons(selected);
     }
   };
 
@@ -56,11 +58,21 @@ const PokemonList: React.FC = () => {
 
       <div className="pokemon-filter">
         <FormGroup controlId="pokemonFilter">
-          <FormControl
+          <Typeahead
+            onChange={handleFilterOptionSelected}
+            onInputChange={handleFilterTextChange}
+            options={pokemons}
+            labelKey="name"
+            multiple={false}
+            placeholder="Filter Pokemon by name"
+            id="pokemon-filter-typeahead"
+            maxResults={10}
+          />
+          {/* <FormControl
             onChange={handleFilter}
             type="text"
             placeholder="Filter Pokemon by name"
-          />
+          /> */}
         </FormGroup>
       </div>
 
