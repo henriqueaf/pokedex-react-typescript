@@ -11,6 +11,10 @@ const PokemonReducer = (state: State, action: ActionType): State => {
       return {
         pokemons: [...state.pokemons, action.payload],
       };
+    case ActionTypes.ADD_POKEMONS:
+      return {
+        pokemons: [...state.pokemons, ...action.payload],
+      };
     default:
       return state;
   }
