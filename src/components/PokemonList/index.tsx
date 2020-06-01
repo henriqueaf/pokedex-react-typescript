@@ -68,11 +68,6 @@ const PokemonList: React.FC = () => {
             id="pokemon-filter-typeahead"
             maxResults={10}
           />
-          {/* <FormControl
-            onChange={handleFilter}
-            type="text"
-            placeholder="Filter Pokemon by name"
-          /> */}
         </FormGroup>
       </div>
 
