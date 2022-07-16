@@ -2,7 +2,7 @@ import React, { createContext, useEffect, useState, useCallback } from 'react';
 import { usePokemonReducer } from '../../reducers/Pokemon';
 import { Pokemon } from '../../reducers/Pokemon/types';
 import { addPokemons } from '../../reducers/Pokemon/actions';
-import { getFirstPageUrl, getPokemonUrl, getPokemonImageUrl } from './utils';
+import { getFirstPageUrl, getPokemonUrl } from './utils';
 
 interface PokemonContextData {
   pokemons: Pokemon[];
@@ -45,13 +45,14 @@ const PokemonProvider: React.SFC = ({ children }) => {
       });
 
       Promise.all(pokemonPromises).then((pokemons) => {
+        console.log(pokemons);
         const parsedPokemons = pokemons.map((pokemonJson) => ({
           id: pokemonJson.id,
           name: pokemonJson.name,
           types: pokemonJson.types.map(
             (typeInfo: { type: { name: string } }) => typeInfo.type.name
           ),
-          imgUrl: getPokemonImageUrl(pokemonJson.id),
+          imgUrl: pokemonJson.sprites.other.home.front_default
         }));
 
         dispatch(addPokemons(parsedPokemons));
