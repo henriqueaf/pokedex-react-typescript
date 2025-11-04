@@ -18,7 +18,7 @@ const PokemonContext = createContext<PokemonContextData>(
   {} as PokemonContextData
 );
 
-const PokemonProvider: React.SFC = ({ children }) => {
+const PokemonProvider: React.FC = ({ children }) => {
   const [state, dispatch] = usePokemonReducer();
   const { pokemons } = state;
 
