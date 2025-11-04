@@ -10,13 +10,13 @@ interface StateProps {
 export type Props = StateProps;
 
 const PokemonItem: React.FC<Props> = ({ pokemon }) => {
-  const { id, name, types, imgUrl } = pokemon;
+  const { name, types, imgUrl } = pokemon;
 
   return (
     <li className={`pokemon-card ${types[0]}`}>
       <img className="card-image" alt={name} src={imgUrl} />
       <h2 className="card-title">
-        {id}. {name}
+        {name}
       </h2>
       <p className="card-subtitle">{types.join(' | ')}</p>
     </li>

@@ -1,9 +1,8 @@
 .pokemon-list-container ul {
-  padding: 0 20px 0 0;
+  padding: 0 20px 20px 20px;
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   grid-gap: 20px;
-  padding-inline-start: 20px;
 }
 
 .pokemon-list-container ul .pokemon-link {

@@ -8,6 +8,7 @@
   box-shadow: none;
   top: 0;
   position: relative;
+  height: 100%;
 }
 
 .pokemon-card::after {
@@ -60,6 +61,9 @@
   position: relative;
   z-index: 2;
   line-height: 1.5;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .pokemon-card .card-subtitle {
@@ -120,7 +124,7 @@
 }
 
 .flying {
-  background-color: #f5f5f5;
+  background-color: #f3f2ea;
 }
 
 .fighting {
@@ -129,4 +133,12 @@
 
 .normal {
   background-color: #f5f5f5;
+}
+
+.dark {
+  background-color: #dfbbbb;
+}
+
+.ghost {
+  background-color: #e4dede;
 }
