@@ -45,7 +45,6 @@ const PokemonProvider: React.SFC = ({ children }) => {
       });
 
       Promise.all(pokemonPromises).then((pokemons) => {
-        console.log(pokemons);
         const parsedPokemons = pokemons.map((pokemonJson) => ({
           id: pokemonJson.id,
           name: pokemonJson.name,
@@ -75,7 +74,7 @@ const PokemonProvider: React.SFC = ({ children }) => {
           // if (jsonResponse.next) {
           //   fetchPokemons(jsonResponse.next, joinedResults);
           // } else {
-          addPokemonsFromRequestResult(joinedResults);
+            addPokemonsFromRequestResult(joinedResults);
           // }
         });
     },

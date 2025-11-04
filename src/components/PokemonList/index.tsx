@@ -27,10 +27,6 @@ const PokemonList: React.FC = () => {
     setSelectedPokemon(pokemon);
   };
 
-  interface FormControlElement {
-    value: string;
-  }
-
   const handleFilterTextChange = (input: string, event: Event) => {
     if (Boolean(input)) {
       const newArray = pokemons.filter((el) => includes(el.name, input));
