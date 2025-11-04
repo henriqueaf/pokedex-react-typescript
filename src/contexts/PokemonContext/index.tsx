@@ -2,7 +2,7 @@ import React, { createContext, useEffect, useState, useCallback } from 'react';
 import { usePokemonReducer } from '../../reducers/Pokemon';
 import { Pokemon } from '../../reducers/Pokemon/types';
 import { addPokemons } from '../../reducers/Pokemon/actions';
-import { getFirstPageUrl, getPokemonUrl } from './utils';
+import { getFirstPageUrl, processPromisesInBatches } from './utils';
 
 interface PokemonContextData {
   pokemons: Pokemon[];
@@ -30,21 +30,16 @@ const PokemonProvider: React.SFC = ({ children }) => {
   };
 
   const addPokemonsFromRequestResult = useCallback(
-    (requestResultArray: RequestResultObject[]) => {
+    async (requestResultArray: RequestResultObject[]) => {
       const pokemonPromises: Promise<any>[] = [];
 
       requestResultArray.forEach((resultObject) => {
-        const regexResult = new RegExp('/([0-9]+)/', 'g').exec(
-          resultObject.url
-        );
-        const pokemonId = regexResult && regexResult[1];
-
         pokemonPromises.push(
-          fetch(getPokemonUrl(pokemonId)).then((response) => response.json())
+          fetch(resultObject.url).then((response) => response.json())
         );
       });
 
-      Promise.all(pokemonPromises).then((pokemons) => {
+      await processPromisesInBatches(pokemonPromises, 10).then((pokemons) => {
         const parsedPokemons = pokemons.map((pokemonJson) => ({
           id: pokemonJson.id,
           name: pokemonJson.name,
@@ -54,6 +49,7 @@ const PokemonProvider: React.SFC = ({ children }) => {
           imgUrl: pokemonJson.sprites.other.home.front_default
         }));
 
+        localStorage.setItem('parsedPokemons', JSON.stringify(parsedPokemons));
         dispatch(addPokemons(parsedPokemons));
       });
 
@@ -71,19 +67,26 @@ const PokemonProvider: React.SFC = ({ children }) => {
         .then((jsonResponse) => {
           const joinedResults = [...acc, ...jsonResponse.results];
 
-          // if (jsonResponse.next) {
-          //   fetchPokemons(jsonResponse.next, joinedResults);
-          // } else {
+          if (jsonResponse.next) {
+            fetchPokemons(jsonResponse.next, joinedResults);
+          } else {
             addPokemonsFromRequestResult(joinedResults);
-          // }
+          }
         });
     },
     [addPokemonsFromRequestResult]
   );
 
   useEffect(() => {
+    const savedParsedPokemons = localStorage.getItem('parsedPokemons');
+
+    if (savedParsedPokemons) {
+      dispatch(addPokemons(JSON.parse(savedParsedPokemons)));
+      return;
+    }
+
     fetchPokemons(getFirstPageUrl(), []);
-  }, [fetchPokemons]);
+  }, [fetchPokemons, dispatch]);
 
   return (
     <PokemonContext.Provider value={providerValue}>
